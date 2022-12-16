@@ -43,5 +43,16 @@ def echo(update: Update, context: CallbackContext):
 echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
 dispatcher.add_handler(echo_handler)
 
+# Мы хотим реализовать команду, которая будет принимать некоторый текст в качестве аргумента и отвечать на него в CAPS.
+# Чтобы упростить задачу, можно получить аргументы (как разделенные на пробелы),
+# которые были переданы команде в функции обратного вызова:/capslist
+def caps(update: Update, context: CallbackContext):
+    # Вводим /caps текст и получаем в ответ ТЕКСТ
+    text_caps = ' '.join(context.args).upper()
+    context.bot.send_message(chat_id=update.effective_chat.id, text=text_caps)
+
+
+caps_handler = CommandHandler('caps', caps)
+dispatcher.add_handler(caps_handler)
 # запускаем бота
 updater.start_polling()
