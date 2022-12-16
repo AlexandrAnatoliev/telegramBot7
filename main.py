@@ -9,6 +9,7 @@ import logging
 from telegram import Update
 from telegram.ext import CallbackContext
 from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler, Filters
 
 # создаем объект
 updater = Updater(token, use_context=True)
@@ -30,6 +31,17 @@ def start(update: Update, context: CallbackContext):
 # /startCommandHandlerHandler
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
+
+
+# Добавим еще один обработчик, который прослушивает обычные сообщения.
+# Используйте , другой подкласс, чтобы повторить все текстовые сообщения:/startMessageHandlerHandler
+def echo(update: Update, context: CallbackContext):
+    # бот должен повторять все некомандные сообщения, которые он получает.
+    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+
+
+echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
+dispatcher.add_handler(echo_handler)
 
 # запускаем бота
 updater.start_polling()
