@@ -1,6 +1,9 @@
 # telegramBot7
 
 # бот из библиотеки python-telegram-bot
+# команда: /start - ответ: I'm a bot, please talk to me!
+# бот повторяет все некомандные сообщения, которые он получает.
+# вводим /caps текст и получаем в ответ ТЕКСТ
 # https://github.com/python-telegram-bot/v13.x-wiki/wiki/Extensions-%E2%80%93-Your-first-Bot
 
 from config import token
@@ -22,7 +25,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 
 def start(update: Update, context: CallbackContext):
-    # функция, обрабатывающая обновления
+    # функция, обрабатывающая команду /start
     context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
 
 
@@ -54,5 +57,6 @@ def caps(update: Update, context: CallbackContext):
 
 caps_handler = CommandHandler('caps', caps)
 dispatcher.add_handler(caps_handler)
+
 # запускаем бота
 updater.start_polling()
