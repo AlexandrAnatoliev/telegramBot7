@@ -59,7 +59,7 @@ start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 ```
 
-#### # бот должен повторять все некомандные сообщения, которые он получает.
+#### бот должен повторять все некомандные сообщения, которые он получает.
 
 ```python
 def echo(update: Update, context: CallbackContext):
